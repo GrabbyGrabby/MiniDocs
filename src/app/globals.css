@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-poppins), 'Poppins', system-ui, sans-serif;
+  --font-poppins: var(--font-poppins), 'Poppins', system-ui, sans-serif;
+  
+  /* Exact Colors from User's uploaded images */
+  --color-deep-slate: #17191D;
+  --color-soft-lilac: #D4BCC8;
+  --color-midnight-indigo: #212842;
+  --color-vanilla-cream: #F0E7D5;
+  --color-dark-purple: #190019;
+  --color-night-indigo: #2B124C;
+  --color-muted-mauve: #522B5B;
+  --color-dusty-purple: #854F6C;
+  --color-muted-mist: #DFB6B2;
+  --color-cream-white: #FBE4D8;
+  --color-dark-teal: #051F20;
+  --color-forest-deep: #0B2B26;
+  --color-pine-green: #163832;
+  --color-sage-dark: #235347;
+  --color-soft-sage: #8EB69B;
+  --color-mint-light: #D9EFE2;
+  
+  /* Theme tokens based on Midnight Indigo & Vanilla Cream + Deep Slate & Soft Lilac */
+  --color-bg-base: #F0E7D5;
+  --color-bg-card: #212842;
+  --color-text-base: #212842;
+  --color-text-muted: #535B74;
+  --color-border-base: #D8CEB9;
+}
+
+:root {
+  --color-deep-slate: #17191D;
+  --color-soft-lilac: #D4BCC8;
+  --color-midnight-indigo: #212842;
+  --color-vanilla-cream: #F0E7D5;
+  --color-dark-purple: #190019;
+  --color-night-indigo: #2B124C;
+  --color-muted-mauve: #522B5B;
+  --color-dusty-purple: #854F6C;
+  --color-muted-mist: #DFB6B2;
+  --color-cream-white: #FBE4D8;
+  --color-dark-teal: #051F20;
+  --color-forest-deep: #0B2B26;
+  --color-pine-green: #163832;
+  --color-sage-dark: #235347;
+  --color-soft-sage: #8EB69B;
+  --color-mint-light: #D9EFE2;
+
+  --color-bg-base: #F0E7D5;
+  --color-bg-card: #212842;
+  --color-text-base: #212842;
+  --color-text-muted: #535B74;
+  --color-border-base: #D8CEB9;
+}
+
+.dark {
+  --color-bg-base: #17191D;
+  --color-bg-card: #212842;
+  --color-text-base: #F0E7D5;
+  --color-text-muted: #D4BCC8;
+  --color-border-base: #2B3354;
+}
+
+/* Super curved pill cards matching user uploaded image exactly */
+.pill-card {
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.curved-box {
+  border-radius: 42px;
+}
+
+/* Poppins global font enforcement */
+* {
+  font-family: var(--font-poppins), 'Poppins', sans-serif !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-base);
+}
+
+/* Hide scrollbars */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
