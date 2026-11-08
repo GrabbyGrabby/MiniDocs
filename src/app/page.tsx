@@ -1,6 +1,5 @@
 import LandingNavbar from "@/components/layout/LandingNavbar";
 import HeroSection from "@/components/landing/HeroSection";
-import BentoCurvedCards from "@/components/landing/BentoCurvedCards";
 import SandboxSection from "@/components/landing/SandboxSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
 import FaqSection from "@/components/landing/FaqSection";
@@ -16,9 +15,8 @@ export default function LandingPage() {
 
       <LandingNavbar />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8 pt-28 pb-12 space-y-24 md:space-y-32 relative z-10">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-5 sm:px-8 pt-24 pb-12 space-y-24 md:space-y-32 relative z-10">
         <HeroSection />
-        <BentoCurvedCards />
         <SandboxSection />
         <HowItWorksSection />
         <FaqSection />

@@ -1,82 +1,94 @@
 "use client";
 import { motion } from "framer-motion";
-import { UploadCloud, Sliders, Download, CheckCircle2 } from "lucide-react";
-
-const steps = [
-  {
-    number: "01",
-    title: "Select or Drag Media",
-    desc: "Drop images (PNG, JPEG, WebP) or video clips (MP4, WebM) straight into the app window.",
-    badge: "Input Stage",
-    icon: UploadCloud,
-    accent: "bg-[#212842] text-white",
-  },
-  {
-    number: "02",
-    title: "Choose Format & Ratio",
-    desc: "Target ultra-efficient WebP or modern H.264. Fine-tune your quality balance on the fly.",
-    badge: "Local Processing",
-    icon: Sliders,
-    accent: "bg-[#D4BCC8] text-[#17191D]",
-  },
-  {
-    number: "03",
-    title: "Instant Export or ZIP",
-    desc: "Download single optimized assets or export the entire batch into one tidy ZIP archive.",
-    badge: "Zero Uploads",
-    icon: Download,
-    accent: "bg-[#212842] text-white",
-  },
-];
+import { Link2, ThumbsUp, Sparkles } from "lucide-react";
 
 export default function HowItWorksSection() {
+  const steps = [
+    {
+      badge: "SUBMIT",
+      step: "STEP 01",
+      title: "Add your media",
+      desc: "Drop any PNG, WebP, JPG image or MP4, WebM video directly into the browser canvas window.",
+      cardBg: "bg-[#CBE6D6] text-[#1E4D3E]", // Mint green card from reference image
+      badgeBg: "bg-[#B4D7C1] text-[#1E4D3E]",
+      iconBg: "bg-[#B4D7C1] text-[#1E4D3E]",
+      descColor: "text-[#1E4D3E]/85",
+      icon: Link2,
+    },
+    {
+      badge: "OPTIMIZE",
+      step: "STEP 02",
+      title: "Select ratio & tier",
+      desc: "Tweak quality balance and format. Quantization and WebAssembly process bytes instantly in memory.",
+      cardBg: "bg-[#F3EAD8] text-[#332A1C]", // Warm beige card from reference image
+      badgeBg: "bg-[#E6DBCE] text-[#332A1C]",
+      iconBg: "bg-[#E6DBCE] text-[#332A1C]",
+      descColor: "text-[#332A1C]/85",
+      icon: ThumbsUp,
+    },
+    {
+      badge: "EXPORT",
+      step: "STEP 03",
+      title: "Claim small size",
+      desc: "Download compressed files or export all in one clean ZIP. Up to 85% size reduction guaranteed.",
+      cardBg: "bg-[#212842] text-white", // Midnight navy dark card from reference image
+      badgeBg: "bg-white/10 text-white/90",
+      iconBg: "bg-white/10 text-white",
+      descColor: "text-[#F0E7D5]/80",
+      icon: Sparkles,
+    },
+  ];
+
   return (
-    <section id="how" className="space-y-8 scroll-mt-28 py-6">
-      <div className="text-center space-y-3 max-w-xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-widest text-[#212842] dark:text-[#D4BCC8] bg-[#D4BCC8]/40 dark:bg-[#212842] px-4 py-1.5 rounded-full">
-          Workflow
-        </span>
-        <h2 className="text-3xl sm:text-5xl font-black text-[#17191D] dark:text-[#F0E7D5] tracking-tight">
-          Three steps. Zero latency.
+    <section id="how" className="space-y-8 scroll-mt-24 py-8">
+      {/* Header */}
+      <div className="text-center space-y-2 max-w-xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-black text-[#17191D] dark:text-[#F0E7D5] tracking-tight">
+          How It Works
         </h2>
-        <p className="text-sm sm:text-base text-[#212842] dark:text-[#F0E7D5] font-semibold leading-relaxed">
-          Because every step runs locally on your computer, there are no file upload queues or waiting lines.
+        <p className="text-sm text-[#17191D]/75 dark:text-[#F0E7D5]/75 font-medium">
+          Instant client-side execution. Zero server hops, zero data retention.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto pt-4">
+      {/* 3 Reference curved cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {steps.map((s, i) => {
           const Icon = s.icon;
           return (
             <motion.div
-              key={i}
+              key={s.step}
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="bg-[#212842] text-[#F0E7D5] border border-white/10 rounded-[36px] p-8 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 transition-all"
+              transition={{ duration: 0.5, delay: i * 0.12 }}
+              className={`rounded-[36px] p-8 flex flex-col justify-between space-y-8 shadow-sm ${s.cardBg} min-h-[300px] border border-black/5 dark:border-white/10`}
             >
+              {/* Card top badges */}
               <div className="flex items-center justify-between">
-                <span className="font-mono text-3xl font-black text-[#D4BCC8]">
-                  {s.number}
+                <span className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider ${s.badgeBg}`}>
+                  {s.badge}
                 </span>
-                <div className={`w-14 h-14 rounded-2xl ${s.accent} flex items-center justify-center shadow-md font-bold`}>
-                  <Icon className="w-7 h-7" />
-                </div>
+                <span className="text-xs font-black tracking-wider uppercase opacity-60">
+                  {s.step}
+                </span>
               </div>
 
-              <div className="space-y-2">
-                <h3 className="text-xl font-black text-white tracking-tight">
+              {/* Title & Desc */}
+              <div className="space-y-3">
+                <h3 className="text-2xl font-black tracking-tight leading-tight">
                   {s.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#F0E7D5]/90 font-medium leading-relaxed">
+                <p className={`text-xs sm:text-sm font-medium leading-relaxed ${s.descColor}`}>
                   {s.desc}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-white/10 flex items-center gap-2 text-xs font-bold text-[#D4BCC8]">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>{s.badge}</span>
+              {/* Bottom right curved icon circle matching reference image */}
+              <div className="flex justify-end pt-2">
+                <div className={`w-12 h-12 rounded-[18px] flex items-center justify-center font-bold ${s.iconBg}`}>
+                  <Icon className="w-5 h-5" />
+                </div>
               </div>
             </motion.div>
           );

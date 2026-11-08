@@ -32,7 +32,8 @@ export default function HomeWorkspacePage() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-[#F0E7D5] dark:bg-[#17191D] text-[#17191D] dark:text-[#F0E7D5] transition-colors duration-200">
+    <div className="flex flex-col md:flex-row min-h-screen w-full bg-[#F0E7D5] dark:bg-[#17191D] text-[#17191D] dark:text-[#F0E7D5]">
+      {/* Sidebar on desktop */}
       <CollapsibleSidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -40,10 +41,12 @@ export default function HomeWorkspacePage() {
         maxStorage={MAX_STORAGE}
       />
 
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      {/* Main Studio Viewport */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         <AppHeader activeTab={activeTab} />
 
-        <main className="flex-1 p-5 md:p-8 pb-20 md:pb-8 overflow-y-auto no-scrollbar max-w-5xl w-full mx-auto">
+        {/* Scrollable Container */}
+        <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-6 pb-28 md:pb-16 overflow-y-visible">
           {activeTab === "compress" && (
             <CompressTab onBytesProcessed={handleBytesProcessed} />
           )}

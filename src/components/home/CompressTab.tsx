@@ -135,21 +135,21 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
   const hasDone = items.some((i) => i.status === "done");
 
   return (
-    <div className="space-y-8 text-left">
+    <div className="space-y-6 text-left">
       <div>
-        <h2 className="text-3xl sm:text-5xl font-black text-[#17191D] dark:text-[#F0E7D5] tracking-tight">
+        <h2 className="text-2xl sm:text-4xl font-light text-[#17191D] dark:text-[#F0E7D5] tracking-tight">
           Compress Image &amp; Video
         </h2>
-        <p className="text-sm text-[#535B74] dark:text-[#D4BCC8] mt-2 font-medium">
-          Instant client-side optimization. Files never leave your browser memory.
+        <p className="text-xs sm:text-sm text-[#535B74] dark:text-[#D4BCC8] mt-1 font-light">
+          Private, in-browser optimization without upload limits or server bottlenecks.
         </p>
       </div>
 
       {/* Pill Settings Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 rounded-[36px] bg-[#212842] text-[#F0E7D5] shadow-xl border border-white/10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-[28px] bg-[#212842] text-[#F0E7D5] border border-white/10 shadow-md">
         {/* Output Format */}
-        <div className="space-y-2.5">
-          <label className="text-[10px] font-bold uppercase tracking-widest text-[#D4BCC8] block">
+        <div className="space-y-2">
+          <label className="text-[10px] font-medium uppercase tracking-widest text-[#D4BCC8] block">
             Target Format
           </label>
           <div className="flex gap-2">
@@ -160,9 +160,9 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
                   key={f}
                   type="button"
                   onClick={() => setImgFormat(f)}
-                  className={`flex-1 py-2 rounded-full text-xs font-black uppercase transition-all cursor-pointer shadow-xs ${
+                  className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
                     active
-                      ? "bg-[#D4BCC8] text-[#17191D] scale-102"
+                      ? "bg-white text-[#17191D]"
                       : "bg-white/10 text-[#F0E7D5] hover:bg-white/20"
                   }`}
                 >
@@ -174,8 +174,8 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
         </div>
 
         {/* Image Tier */}
-        <div className="space-y-2.5">
-          <label className="text-[10px] font-bold uppercase tracking-widest text-[#D4BCC8] block">
+        <div className="space-y-2">
+          <label className="text-[10px] font-medium uppercase tracking-widest text-[#D4BCC8] block">
             Image Tier
           </label>
           <div className="flex gap-2">
@@ -186,9 +186,9 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
                   key={lvl}
                   type="button"
                   onClick={() => setImgLevel(lvl)}
-                  className={`flex-1 py-2 rounded-full text-xs font-black uppercase transition-all cursor-pointer shadow-xs ${
+                  className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
                     active
-                      ? "bg-[#D4BCC8] text-[#17191D] scale-102"
+                      ? "bg-white text-[#17191D]"
                       : "bg-white/10 text-[#F0E7D5] hover:bg-white/20"
                   }`}
                 >
@@ -200,8 +200,8 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
         </div>
 
         {/* Video Tier */}
-        <div className="space-y-2.5">
-          <label className="text-[10px] font-bold uppercase tracking-widest text-[#D4BCC8] block">
+        <div className="space-y-2">
+          <label className="text-[10px] font-medium uppercase tracking-widest text-[#D4BCC8] block">
             Video Tier
           </label>
           <div className="flex gap-2">
@@ -212,9 +212,9 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
                   key={lvl}
                   type="button"
                   onClick={() => setVidLevel(lvl)}
-                  className={`flex-1 py-2 rounded-full text-xs font-black uppercase transition-all cursor-pointer shadow-xs ${
+                  className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
                     active
-                      ? "bg-[#D4BCC8] text-[#17191D] scale-102"
+                      ? "bg-white text-[#17191D]"
                       : "bg-white/10 text-[#F0E7D5] hover:bg-white/20"
                   }`}
                 >
@@ -227,9 +227,9 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
       </div>
 
       {ffmpegLoading && (
-        <div className="p-4 bg-[#212842] text-[#D4BCC8] rounded-full text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-3 shadow-md border border-[#D4BCC8]/30">
-          <span className="animate-spin text-base">✦</span>
-          <span>Loading FFmpeg WebAssembly core in browser memory...</span>
+        <div className="p-3 bg-[#212842] text-[#D4BCC8] rounded-full text-xs font-normal flex items-center justify-center gap-2 shadow-sm border border-[#D4BCC8]/20">
+          <span className="animate-spin">✦</span>
+          <span>Loading background optimizer in memory...</span>
         </div>
       )}
 
