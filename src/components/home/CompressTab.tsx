@@ -248,15 +248,15 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
                 <button
                   disabled={isProcessingAll}
                   onClick={handleCompressAll}
-                  className="px-6 py-2.5 rounded-full bg-[#D4BCC8] hover:bg-[#FBE4D8] text-[#17191D] text-xs font-black uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 shadow-md active:scale-95"
+                  className="px-5 py-2 rounded-full bg-white text-[#17191D] hover:bg-[#F0E7D5] text-xs font-normal uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 shadow-sm active:scale-98"
                 >
-                  {isProcessingAll ? "Processing..." : "⚡ Compress All"}
+                  {isProcessingAll ? "Processing..." : "Compress All"}
                 </button>
               )}
               {hasDone && (
                 <button
                   onClick={handleDownloadAllZip}
-                  className="px-6 py-2.5 rounded-full bg-white hover:bg-[#F0E7D5] text-[#17191D] text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md active:scale-95"
+                  className="px-5 py-2 rounded-full bg-[#D4BCC8] hover:bg-white text-[#17191D] text-xs font-normal uppercase tracking-wider transition-all cursor-pointer shadow-sm active:scale-98"
                 >
                   Download All (ZIP)
                 </button>

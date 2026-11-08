@@ -48,16 +48,16 @@ export default function DropZone({
         onChange={handleChange}
         className="hidden"
       />
-      <div className="w-16 h-16 bg-brand-vanilla dark:bg-brand-indigo/50 text-brand-indigo dark:text-brand-vanilla rounded-3xl flex items-center justify-center mb-4 border border-brand-indigo/15 dark:border-white/10 transition-transform duration-300 group-hover:scale-110 shadow-xs">
-        <UploadCloud className="w-8 h-8" />
+      <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105">
+        <UploadCloud className="w-7 h-7" />
       </div>
-      <h3 className="text-xl sm:text-2xl font-bold text-brand-slate dark:text-white">
+      <h3 className="text-lg sm:text-xl font-normal text-brand-slate dark:text-white">
         {label}
       </h3>
-      <p className="text-xs sm:text-sm text-text-muted mt-1.5 font-normal">
+      <p className="text-xs sm:text-sm text-text-muted mt-1 font-light">
         Drag &amp; drop your files here, or click to browse
       </p>
-      <span className="text-[11px] font-medium text-text-dim tracking-wider mt-4 block">
+      <span className="text-[11px] font-light text-text-dim tracking-wider mt-3 block">
         {sublabel}
       </span>
     </div>

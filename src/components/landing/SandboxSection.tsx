@@ -37,25 +37,25 @@ export default function SandboxSection() {
   const VIDEO_SRC = "https://vjs.zencdn.net/v/oceans.mp4";
 
   return (
-    <section id="demo" className="space-y-8 scroll-mt-28 py-6">
+    <section id="demo" className="space-y-6 scroll-mt-24 py-6">
       {/* Header */}
-      <div className="text-center space-y-3 max-w-xl mx-auto">
-        <span className="text-xs font-bold uppercase tracking-widest text-[#212842] dark:text-[#D4BCC8] bg-[#D4BCC8]/40 dark:bg-[#212842] px-4 py-1.5 rounded-full">
+      <div className="text-center space-y-2 max-w-xl mx-auto">
+        <span className="text-[11px] font-medium uppercase tracking-widest text-[#212842] dark:text-[#D4BCC8] bg-[#D4BCC8]/30 dark:bg-white/10 px-3.5 py-1 rounded-full">
           Live Playground
         </span>
-        <h2 className="text-3xl sm:text-5xl font-black text-[#17191D] dark:text-[#F0E7D5] tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-light text-[#17191D] dark:text-[#F0E7D5] tracking-tight">
           Test MiniDocs Live
         </h2>
-        <p className="text-sm sm:text-base text-[#212842] dark:text-[#F0E7D5] font-semibold leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#212842]/75 dark:text-[#F0E7D5]/75 font-light leading-relaxed">
           Drag the interactive slider to inspect simulated real-time in-browser video compression.
         </p>
 
         {/* View toggle */}
-        <div className="inline-flex gap-1 bg-[#212842] p-1.5 rounded-full mt-2 shadow-md">
+        <div className="inline-flex gap-1 bg-[#212842] p-1 rounded-full mt-2 border border-white/10">
           <button
             onClick={() => setView("slider")}
-            className={`flex items-center gap-1.5 px-5 py-2 text-xs font-black uppercase tracking-wider rounded-full transition-all cursor-pointer ${
-              view === "slider" ? "bg-[#D4BCC8] text-[#17191D]" : "text-[#F0E7D5] hover:text-white"
+            className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-normal uppercase tracking-wider rounded-full transition-all cursor-pointer ${
+              view === "slider" ? "bg-white text-[#17191D]" : "text-[#F0E7D5] hover:text-white"
             }`}
           >
             <Sliders className="w-3.5 h-3.5" />
@@ -63,8 +63,8 @@ export default function SandboxSection() {
           </button>
           <button
             onClick={() => setView("side")}
-            className={`flex items-center gap-1.5 px-5 py-2 text-xs font-black uppercase tracking-wider rounded-full transition-all cursor-pointer ${
-              view === "side" ? "bg-[#D4BCC8] text-[#17191D]" : "text-[#F0E7D5] hover:text-white"
+            className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-normal uppercase tracking-wider rounded-full transition-all cursor-pointer ${
+              view === "side" ? "bg-white text-[#17191D]" : "text-[#F0E7D5] hover:text-white"
             }`}
           >
             <Columns className="w-3.5 h-3.5" />
@@ -77,13 +77,13 @@ export default function SandboxSection() {
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
         className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-5xl mx-auto"
       >
         {/* Settings Panel */}
-        <div className="lg:col-span-4 bg-[#212842] text-[#F0E7D5] rounded-[42px] p-7 space-y-6 shadow-xl border border-white/10">
+        <div className="lg:col-span-4 bg-[#212842] text-[#F0E7D5] rounded-[32px] p-6 space-y-5 border border-white/10 shadow-sm">
           <div>
-            <label className="text-xs font-black uppercase tracking-widest text-[#D4BCC8] block mb-2.5">
+            <label className="text-[11px] font-medium uppercase tracking-widest text-[#D4BCC8] block mb-2">
               Format: <span className="text-white">{format.toUpperCase()}</span>
             </label>
             <div className="grid grid-cols-4 gap-1.5">
@@ -91,10 +91,10 @@ export default function SandboxSection() {
                 <button
                   key={f}
                   onClick={() => setFormat(f)}
-                  className={`py-2 text-[11px] font-black uppercase rounded-full border transition-all cursor-pointer ${
+                  className={`py-1.5 text-[11px] font-normal uppercase rounded-full border transition-all cursor-pointer ${
                     format === f
-                      ? "bg-[#D4BCC8] text-[#17191D] border-[#D4BCC8] shadow-sm scale-102"
-                      : "border-white/30 text-white hover:border-[#D4BCC8]"
+                      ? "bg-white text-[#17191D] border-white"
+                      : "border-white/20 text-white/80 hover:border-white/40"
                   }`}
                 >
                   {f}
@@ -105,10 +105,10 @@ export default function SandboxSection() {
 
           <div>
             <div className="flex justify-between items-center mb-1">
-              <label className="text-xs font-black uppercase tracking-widest text-[#D4BCC8]">
+              <label className="text-[11px] font-medium uppercase tracking-widest text-[#D4BCC8]">
                 Quality Slider
               </label>
-              <span className="text-xs font-mono font-black text-white bg-white/20 px-3 py-1 rounded-full">
+              <span className="text-xs font-mono font-normal text-white bg-white/10 px-2.5 py-0.5 rounded-full">
                 {quality}%
               </span>
             </div>
@@ -118,12 +118,12 @@ export default function SandboxSection() {
               max={100}
               value={quality}
               onChange={(e) => setQuality(Number(e.target.value))}
-              className="w-full h-2.5 bg-white/30 rounded-full appearance-none cursor-pointer accent-[#D4BCC8] mt-2"
+              className="w-full h-2 bg-white/20 rounded-full appearance-none cursor-pointer accent-[#D4BCC8] mt-2"
             />
           </div>
 
           <div>
-            <label className="text-xs font-black uppercase tracking-widest text-[#D4BCC8] block mb-2">
+            <label className="text-[11px] font-medium uppercase tracking-widest text-[#D4BCC8] block mb-2">
               Presets
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -132,7 +132,7 @@ export default function SandboxSection() {
                   <button
                     key={p}
                     onClick={() => applyPreset(p)}
-                    className="py-2.5 rounded-full border border-white/30 text-[11px] font-black uppercase tracking-wider text-white hover:bg-[#D4BCC8] hover:text-[#17191D] hover:border-[#D4BCC8] transition-all cursor-pointer"
+                    className="py-2 rounded-full border border-white/20 text-[11px] font-normal uppercase tracking-wider text-white hover:bg-white hover:text-[#17191D] transition-all cursor-pointer"
                   >
                     {label}
                   </button>
@@ -141,85 +141,90 @@ export default function SandboxSection() {
             </div>
           </div>
 
-          <div className="p-4 rounded-3xl bg-white/10 text-xs text-[#F0E7D5] leading-relaxed border border-white/15">
-            <span className="font-black text-[#D4BCC8] block mb-1 uppercase tracking-wider">
+          <div className="p-3.5 rounded-2xl bg-white/5 text-xs text-[#F0E7D5]/80 leading-relaxed border border-white/10">
+            <span className="font-medium text-[#D4BCC8] block mb-1 uppercase tracking-wider text-[11px]">
               ✦ Zero Telemetry
             </span>
-            Everything is computed in your device RAM via WebAssembly &amp; HTML5 Canvas.
+            Everything is computed in your device local memory with air-gapped privacy.
           </div>
         </div>
 
         {/* Live Preview Container */}
-        <div className="lg:col-span-8 bg-[#212842] rounded-[42px] p-7 space-y-6 shadow-xl border border-white/10">
+        <div className="lg:col-span-8 bg-[#212842] rounded-[32px] p-6 space-y-5 border border-white/10 shadow-sm">
           {view === "slider" ? (
             <div
               ref={containerRef}
-              className="relative w-full h-72 sm:h-80 rounded-[32px] overflow-hidden border-2 border-white/20 bg-black select-none cursor-ew-resize"
+              className="relative w-full h-72 sm:h-80 rounded-[28px] overflow-hidden border border-white/20 bg-black select-none cursor-ew-resize"
               onMouseMove={onMove}
               onMouseUp={stopDrag}
               onMouseLeave={stopDrag}
               onTouchMove={onMove}
               onTouchEnd={stopDrag}
             >
-              {/* Right Side Video (Optimized) */}
-              <div className="absolute inset-0">
-                <video src={VIDEO_SRC} autoPlay loop muted playsInline className="w-full h-full object-cover" style={{ filter: filterStyle }} />
-                <span className="absolute bottom-4 right-4 bg-[#17191D]/90 backdrop-blur-md text-[11px] text-white border border-white/20 px-3.5 py-1.5 rounded-full font-mono font-black tracking-wider z-10 shadow-sm">
-                  OPTIMIZED ({quality}%)
-                </span>
-              </div>
-
-              {/* Left Side Video (Raw Source) */}
+              <video src={VIDEO_SRC} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
               <div
-                className="absolute inset-y-0 left-0 overflow-hidden border-r-2 border-white/90 shadow-2xl z-10"
-                style={{ width: `${sliderPct}%` }}
+                className="absolute inset-y-0 right-0 overflow-hidden"
+                style={{ left: `${sliderPct}%` }}
               >
-                <div style={{ width: containerRef.current?.offsetWidth ?? 600, height: "100%" }}>
-                  <video src={VIDEO_SRC} autoPlay loop muted playsInline className="w-full h-full object-cover" />
-                  <span className="absolute bottom-4 left-4 bg-[#212842]/90 backdrop-blur-md text-[11px] text-white border border-white/20 px-3.5 py-1.5 rounded-full font-mono font-black tracking-wider z-10 shadow-sm">
-                    RAW SOURCE (100%)
-                  </span>
-                </div>
+                <video
+                  src={VIDEO_SRC}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-y-0 right-0 h-full object-cover max-w-none"
+                  style={{
+                    width: containerRef.current?.clientWidth || "100%",
+                    transform: `translateX(-${sliderPct}%)`,
+                    filter: filterStyle,
+                  }}
+                />
               </div>
 
-              {/* Drag Handle */}
+              <span className="absolute bottom-3 left-3 bg-[#17191D]/80 backdrop-blur-xs text-white text-[10px] font-normal uppercase tracking-wider px-3 py-1 rounded-full border border-white/10 pointer-events-none">
+                Raw Source (100%)
+              </span>
+              <span className="absolute bottom-3 right-3 bg-[#17191D]/80 backdrop-blur-xs text-white text-[10px] font-normal uppercase tracking-wider px-3 py-1 rounded-full border border-white/10 pointer-events-none">
+                Optimized ({quality}%)
+              </span>
+
               <div
-                className="absolute inset-y-0 z-20 w-8 -ml-4 flex items-center justify-center cursor-ew-resize"
+                className="absolute inset-y-0 w-0.5 bg-white shadow-lg pointer-events-auto flex items-center justify-center -translate-x-1/2"
                 style={{ left: `${sliderPct}%` }}
                 onMouseDown={startDrag}
                 onTouchStart={startDrag}
               >
-                <div className="w-9 h-9 rounded-full bg-[#D4BCC8] text-[#17191D] border-2 border-[#17191D] flex items-center justify-center shadow-2xl hover:scale-115 transition-transform">
-                  <Sliders className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-full bg-white text-[#17191D] flex items-center justify-center shadow-md">
+                  <Sliders className="w-3.5 h-3.5" />
                 </div>
               </div>
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3 h-72 sm:h-80">
-              <div className="rounded-[32px] overflow-hidden border-2 border-white/20 relative">
+              <div className="rounded-[28px] overflow-hidden border border-white/20 relative">
                 <video src={VIDEO_SRC} autoPlay loop muted playsInline className="w-full h-full object-cover" />
-                <span className="absolute bottom-3 left-3 bg-[#212842]/90 text-white px-3 py-1 rounded-full font-mono font-bold text-[10px]">RAW</span>
+                <span className="absolute bottom-3 left-3 bg-[#17191D]/80 text-white px-3 py-1 rounded-full text-[10px] font-normal">RAW</span>
               </div>
-              <div className="rounded-[32px] overflow-hidden border-2 border-white/20 relative">
+              <div className="rounded-[28px] overflow-hidden border border-white/20 relative">
                 <video src={VIDEO_SRC} autoPlay loop muted playsInline className="w-full h-full object-cover" style={{ filter: filterStyle }} />
-                <span className="absolute bottom-3 left-3 bg-[#17191D]/90 text-white px-3 py-1 rounded-full font-mono font-bold text-[10px]">OPTIMIZED</span>
+                <span className="absolute bottom-3 left-3 bg-[#17191D]/80 text-white px-3 py-1 rounded-full text-[10px] font-normal">OPTIMIZED</span>
               </div>
             </div>
           )}
 
           {/* Metric Badges */}
           <div className="grid grid-cols-3 gap-3">
-            <div className="bg-white/15 rounded-full px-5 py-3.5 border border-white/20 text-center">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#D4BCC8] block">Raw</span>
-              <div className="text-xl font-black text-white">{originalMB} MB</div>
+            <div className="bg-white/5 rounded-full px-4 py-3 border border-white/10 text-center">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-[#D4BCC8] block">Raw</span>
+              <div className="text-lg font-light text-white">{originalMB} MB</div>
             </div>
-            <div className="bg-white/15 rounded-full px-5 py-3.5 border border-white/20 text-center">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#D4BCC8] block">Optimized</span>
-              <div className="text-xl font-black text-white">{compressedMB} MB</div>
+            <div className="bg-white/5 rounded-full px-4 py-3 border border-white/10 text-center">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-[#D4BCC8] block">Optimized</span>
+              <div className="text-lg font-light text-white">{compressedMB} MB</div>
             </div>
-            <div className="bg-[#D4BCC8] text-[#17191D] rounded-full px-5 py-3.5 text-center shadow-md">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#17191D] block">Saved</span>
-              <div className="text-xl font-black text-[#17191D]">-{reduction}%</div>
+            <div className="bg-white text-[#17191D] rounded-full px-4 py-3 text-center shadow-sm">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-[#17191D]/70 block">Saved</span>
+              <div className="text-lg font-medium text-[#17191D]">-{reduction}%</div>
             </div>
           </div>
         </div>
