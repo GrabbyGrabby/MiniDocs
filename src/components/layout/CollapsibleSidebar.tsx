@@ -57,12 +57,12 @@ export default function CollapsibleSidebar({
     <motion.aside
       animate={{ width: isCollapsed ? 76 : 240 }}
       transition={{ type: "spring", stiffness: 350, damping: 32 }}
-      className="hidden md:flex relative flex-col justify-between p-4 bg-[#212842] text-[#F0E7D5] border-r border-white/10 shrink-0 z-30 select-none"
+      className="hidden md:flex relative flex-col justify-between p-4 bg-[#0a0a0c] text-[#F0E7D5] border-r border-[#D4BCC8]/20 shrink-0 z-30 select-none"
     >
       {/* Collapse Trigger Pill */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-7 w-6 h-6 rounded-full bg-[#D4BCC8] text-[#17191D] flex items-center justify-center shadow hover:scale-105 active:scale-95 transition-all cursor-pointer z-40 border border-[#17191D]/20"
+        className="absolute -right-3 top-7 w-6 h-6 rounded-full bg-[#F0E7D5] text-[#000000] flex items-center justify-center shadow hover:scale-105 active:scale-95 transition-all cursor-pointer z-40 border border-[#D4BCC8]/40"
         title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
       >
         {isCollapsed ? (
@@ -80,7 +80,7 @@ export default function CollapsibleSidebar({
             isCollapsed ? "justify-center" : "px-2"
           }`}
         >
-          <div className="w-8 h-8 rounded-full bg-[#D4BCC8] text-[#17191D] flex items-center justify-center font-bold text-xs shrink-0">
+          <div className="w-8 h-8 rounded-full bg-[#F0E7D5] text-[#000000] flex items-center justify-center font-normal text-xs shrink-0">
             MD.
           </div>
           <AnimatePresence>
@@ -92,8 +92,8 @@ export default function CollapsibleSidebar({
                 transition={{ duration: 0.15 }}
                 className="flex items-center"
               >
-                <span className="text-sm font-semibold tracking-tight text-white">
-                  Mini<span className="text-[#D4BCC8]">Docs</span>
+                <span className="text-sm font-light tracking-tight text-[#F0E7D5]">
+                  MiniDocs
                 </span>
               </motion.div>
             )}
@@ -109,10 +109,10 @@ export default function CollapsibleSidebar({
               <button
                 key={item.tab}
                 onClick={() => setActiveTab(item.tab)}
-                className={`w-full group flex items-center gap-3 px-3 py-2.5 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
+                className={`w-full group flex items-center gap-3 px-3 py-2.5 rounded-full text-xs font-normal transition-all duration-200 cursor-pointer ${
                   active
-                    ? "bg-white text-[#17191D] shadow-sm font-semibold"
-                    : "text-[#F0E7D5]/80 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#F0E7D5] text-[#000000] shadow-sm"
+                    : "text-[#F0E7D5]/70 hover:bg-white/10 hover:text-white"
                 } ${isCollapsed ? "justify-center px-0" : ""}`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -139,8 +139,8 @@ export default function CollapsibleSidebar({
       <div>
         {!isCollapsed ? (
           <div className="rounded-2xl p-3 bg-white/5 border border-white/10 space-y-2">
-            <div className="flex items-center justify-between text-[11px] font-medium text-white/90">
-              <span className="flex items-center gap-1.5 text-[#F0E7D5]/80">
+            <div className="flex items-center justify-between text-[11px] font-light text-[#F0E7D5]/80">
+              <span className="flex items-center gap-1.5">
                 <Cpu className="w-3 h-3 text-[#D4BCC8]" /> Memory
               </span>
               <span className="font-mono text-[#D4BCC8]">{percentUsed}%</span>

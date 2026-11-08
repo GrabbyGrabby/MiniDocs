@@ -1,9 +1,8 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-
-const FFMPEG_CORE_BASE = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd";
-const FFMPEG_JS_URL = "https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { toBlobURL } from "@ffmpeg/util";
 
 export type VideoLevel = "low" | "balance" | "high";
 
@@ -19,22 +18,8 @@ const LEVEL_CONFIGS: Record<VideoLevel, LevelConfig> = {
   high:    { crf: "32", preset: "ultrafast", audio: "48k" },
 };
 
-function loadScript(src: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    if (typeof window === "undefined") return resolve();
-    if (document.querySelector(`script[src="${src}"]`)) return resolve();
-    const script = document.createElement("script");
-    script.src = src;
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load script`));
-    document.body.appendChild(script);
-  });
-}
-
 export function useFFmpeg() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ffmpegRef = useRef<any>(null);
+  const ffmpegRef = useRef<FFmpeg | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -44,20 +29,30 @@ export function useFFmpeg() {
     setLoading(true);
     setLoadError(null);
     try {
-      await loadScript(FFMPEG_JS_URL);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const FFmpegClass = (window as any).FFmpegWASM?.FFmpeg;
-      if (!FFmpegClass) {
-        throw new Error("Optimizer core unavailable");
-      }
-
-      const ff = new FFmpegClass();
+      const ff = new FFmpeg();
       ffmpegRef.current = ff;
 
-      await ff.load({
-        coreURL: `${FFMPEG_CORE_BASE}/ffmpeg-core.js`,
-        wasmURL: `${FFMPEG_CORE_BASE}/ffmpeg-core.wasm`,
+      ff.on("log", ({ message }: { message: string }) => {
+        if (process.env.NODE_ENV !== "production") {
+          console.log("[Engine log]:", message);
+        }
       });
+
+      // Load from local public directory first (instant & same-origin), fallback to CDN if needed
+      const origin = typeof window !== "undefined" ? window.location.origin : "";
+      let coreURL: string;
+      let wasmURL: string;
+
+      try {
+        coreURL = await toBlobURL(`${origin}/ffmpeg/ffmpeg-core.js`, "text/javascript");
+        wasmURL = await toBlobURL(`${origin}/ffmpeg/ffmpeg-core.wasm`, "application/wasm");
+      } catch {
+        const unpkgBase = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd";
+        coreURL = await toBlobURL(`${unpkgBase}/ffmpeg-core.js`, "text/javascript");
+        wasmURL = await toBlobURL(`${unpkgBase}/ffmpeg-core.wasm`, "application/wasm");
+      }
+
+      await ff.load({ coreURL, wasmURL });
       setLoaded(true);
     } catch (err) {
       setLoadError(err instanceof Error ? err.message : String(err));
@@ -90,13 +85,18 @@ export function useFFmpeg() {
         await ff.writeFile(safeInput, fileData);
         const { crf, preset, audio } = LEVEL_CONFIGS[level];
 
-        // Compatible scaling filter with even dimensions for H.264
+        // Safe args:
+        // -map 0:v:0 to grab primary video stream
+        // -map 0:a? to safely grab audio if present, without failing on silent videos
+        // scale to max 1080p and ensure even dimensions for H.264
         const args = [
           "-i", safeInput,
+          "-map", "0:v:0",
+          "-map", "0:a?",
           "-c:v", "libx264",
           "-preset", preset,
           "-crf", crf,
-          "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
+          "-vf", "scale='min(1920,iw)':-2:flags=lanczos,scale=trunc(iw/2)*2:trunc(ih/2)*2",
           "-c:a", "aac",
           "-b:a", audio,
           "-movflags", "+faststart",
@@ -108,7 +108,8 @@ export function useFFmpeg() {
         if (ret !== 0) throw new Error("Video compression failed");
 
         const data = await ff.readFile(safeOutput);
-        const result = new Blob([new Uint8Array(data)], {
+        const binaryData = typeof data === "string" ? new TextEncoder().encode(data) : data;
+        const result = new Blob([binaryData.buffer as ArrayBuffer], {
           type: "video/mp4",
         });
 

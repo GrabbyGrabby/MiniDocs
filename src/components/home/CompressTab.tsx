@@ -131,6 +131,7 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
     }
   }
 
+  const hasVideos = items.some((i) => isVideoFile(i.file));
   const hasIdle = items.some((i) => i.status === "idle");
   const hasDone = items.some((i) => i.status === "done");
 
@@ -145,13 +146,20 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
         </p>
       </div>
 
-      {/* Vanilla Cream & Soft Lilac Card */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-[24px] bg-[#F0E7D5] text-[#000000] border border-[#D4BCC8]/40 shadow-sm">
-        {/* Output Format */}
+      {/* Previous Curved Settings Pill Card with Smart Video Auto-Reveal */}
+      <div
+        className={`grid grid-cols-1 ${
+          hasVideos ? "sm:grid-cols-3" : "sm:grid-cols-2"
+        } gap-4 p-5 rounded-[24px] bg-[#F0E7D5] text-[#000000] border border-[#D4BCC8]/40 shadow-sm transition-all`}
+      >
+        {/* Output Format (Export As) */}
         <div className="space-y-2">
-          <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
-            Target Format
-          </label>
+          <div className="flex items-center justify-between">
+            <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
+              Format (Export As)
+            </label>
+            <span className="text-[10px] font-mono text-[#000000]/50 uppercase">{imgFormat}</span>
+          </div>
           <div className="flex gap-2">
             {(["webp", "jpeg", "png"] as ImageOutputFormat[]).map((f) => {
               const active = imgFormat === f;
@@ -166,18 +174,23 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
                       : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
                   }`}
                 >
-                  {f}
+                  {f === "jpeg" ? "jpg" : f}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Image Tier */}
+        {/* Image Level (Quality) */}
         <div className="space-y-2">
-          <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
-            Image Level
-          </label>
+          <div className="flex items-center justify-between">
+            <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
+              Image Quality
+            </label>
+            <span className="text-[10px] font-mono text-[#000000]/50">
+              {imgLevel === "high" ? "Max" : imgLevel === "balance" ? "Mid" : "High Q"}
+            </span>
+          </div>
           <div className="flex gap-2">
             {(["high", "balance", "low"] as CompressionLevel[]).map((lvl) => {
               const active = imgLevel === lvl;
@@ -199,31 +212,38 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
           </div>
         </div>
 
-        {/* Video Tier */}
-        <div className="space-y-2">
-          <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
-            Video Level
-          </label>
-          <div className="flex gap-2">
-            {(["high", "balance", "low"] as VideoLevel[]).map((lvl) => {
-              const active = vidLevel === lvl;
-              return (
-                <button
-                  key={lvl}
-                  type="button"
-                  onClick={() => setVidLevel(lvl)}
-                  className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
-                    active
-                      ? "bg-[#000000] text-[#FFFFFF]"
-                      : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
-                  }`}
-                >
-                  {lvl === "high" ? "Max" : lvl === "balance" ? "Mid" : "High Q"}
-                </button>
-              );
-            })}
+        {/* Video Level - Appears ONLY when video is added */}
+        {hasVideos && (
+          <div className="space-y-2 animate-in fade-in duration-200">
+            <div className="flex items-center justify-between">
+              <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
+                Video Level
+              </label>
+              <span className="text-[10px] font-mono text-[#000000]/50">
+                {vidLevel === "high" ? "Max" : vidLevel === "balance" ? "Mid" : "High Q"}
+              </span>
+            </div>
+            <div className="flex gap-2">
+              {(["high", "balance", "low"] as VideoLevel[]).map((lvl) => {
+                const active = vidLevel === lvl;
+                return (
+                  <button
+                    key={lvl}
+                    type="button"
+                    onClick={() => setVidLevel(lvl)}
+                    className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
+                      active
+                        ? "bg-[#000000] text-[#FFFFFF]"
+                        : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
+                    }`}
+                  >
+                    {lvl === "high" ? "Max" : lvl === "balance" ? "Mid" : "High Q"}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {ffmpegLoading && (

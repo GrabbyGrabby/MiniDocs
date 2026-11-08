@@ -17,9 +17,13 @@ export function outputFileName(original: string, ext: string): string {
 }
 
 export function isVideoFile(file: File): boolean {
-  return file.type.startsWith("video/");
+  if (file.type && file.type.startsWith("video/")) return true;
+  const ext = file.name.split(".").pop()?.toLowerCase();
+  return ["mp4", "webm", "mov", "m4v", "avi", "mkv", "quicktime"].includes(ext || "");
 }
 
 export function isImageFile(file: File): boolean {
-  return file.type.startsWith("image/");
+  if (file.type && file.type.startsWith("image/")) return true;
+  const ext = file.name.split(".").pop()?.toLowerCase();
+  return ["png", "jpg", "jpeg", "webp", "gif", "bmp", "avif"].includes(ext || "");
 }

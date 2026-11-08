@@ -31,10 +31,10 @@ export default function HowItWorksSection() {
       step: "STEP 03",
       title: "Claim small size",
       desc: "Download compressed files or export all in one clean ZIP. Up to 85% size reduction guaranteed.",
-      cardBg: "bg-[#212842] text-white", // Midnight navy dark card from reference image
-      badgeBg: "bg-white/10 text-white/90",
-      iconBg: "bg-white/10 text-white",
-      descColor: "text-[#F0E7D5]/80",
+      cardBg: "bg-[#0f0f12] text-[#F0E7D5] border border-[#D4BCC8]/30",
+      badgeBg: "bg-white/10 text-[#F0E7D5]",
+      iconBg: "bg-white/10 text-[#D4BCC8]",
+      descColor: "text-[#D4BCC8]/80",
       icon: Sparkles,
     },
   ];

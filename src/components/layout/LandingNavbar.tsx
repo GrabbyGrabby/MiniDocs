@@ -27,15 +27,16 @@ export default function LandingNavbar() {
         transition={{ duration: 0.25, ease: "easeInOut" }}
         className="pointer-events-auto h-11 bg-[#F0E7D5] text-[#000000] px-3 sm:px-4 flex items-center gap-3 sm:gap-5 rounded-full shadow-lg border border-[#D4BCC8]/40"
       >
-        {/* Brand */}
+        {/* Brand: Turns to "MiniDocs" on phone view, "MD." on desktop */}
         <Link
           href="/"
-          className="text-[#000000] font-normal text-xs sm:text-sm tracking-tight px-2 py-1 rounded-full transition-colors hover:bg-[#000000] hover:text-[#FFFFFF]"
+          className="text-[#000000] font-normal text-xs sm:text-sm tracking-tight px-2.5 py-1 rounded-full transition-colors hover:bg-[#000000] hover:text-[#FFFFFF]"
         >
-          MD.
+          <span className="sm:hidden">MiniDocs</span>
+          <span className="hidden sm:inline">MD.</span>
         </Link>
 
-        {/* Links with PURE DARK BLACK TEXT (#000000) turning to black card with white text on hover */}
+        {/* Navigation */}
         <nav className="flex items-center gap-1 text-xs">
           <a
             href="#demo"
@@ -43,12 +44,13 @@ export default function LandingNavbar() {
           >
             Playground
           </a>
-          <a
-            href="#how"
-            className="px-3.5 py-1 rounded-full text-[#000000] font-normal hover:bg-[#000000] hover:text-[#FFFFFF] transition-all duration-200"
+          {/* Hidden on phone view */}
+          <Link
+            href="/how-it-works"
+            className="hidden sm:inline-block px-3.5 py-1 rounded-full text-[#000000] font-normal hover:bg-[#000000] hover:text-[#FFFFFF] transition-all duration-200"
           >
             How it works
-          </a>
+          </Link>
         </nav>
 
         {/* Studio Button */}

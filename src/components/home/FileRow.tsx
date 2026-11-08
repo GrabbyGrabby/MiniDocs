@@ -1,5 +1,5 @@
 "use client";
-import { formatBytes, reductionPct } from "@/lib/format";
+import { formatBytes, reductionPct, isVideoFile } from "@/lib/format";
 import { downloadSingle } from "@/lib/batch-download";
 import { Film, Image as ImageIcon, X, Download, Loader2, Sparkles } from "lucide-react";
 
@@ -22,7 +22,7 @@ interface FileRowProps {
 }
 
 export default function FileRow({ item, onRemove, onCompressSingle }: FileRowProps) {
-  const isVideo = item.file.type.startsWith("video/");
+  const isVideo = isVideoFile(item.file);
   const reduction = item.compressedSize
     ? reductionPct(item.originalSize, item.compressedSize)
     : 0;
