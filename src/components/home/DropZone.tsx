@@ -12,9 +12,9 @@ interface DropZoneProps {
 
 export default function DropZone({
   onFilesSelected,
-  accept = "image/*,video/*",
-  label = "Add images or videos",
-  sublabel = "WEBP, PNG, JPG, MP4, WebM (up to 500 MB per file)",
+  accept = "image/*,video/*,.png,.jpg,.jpeg,.webp,.mp4,.webm,.mov",
+  label = "Add image or video",
+  sublabel = "PNG, JPG, WEBP, MP4, WebM, MOV",
 }: DropZoneProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,7 +38,7 @@ export default function DropZone({
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
       onClick={() => fileInputRef.current?.click()}
-      className="border-2 border-dashed border-border-base hover:border-brand-indigo/60 dark:hover:border-brand-mint/60 rounded-[36px] p-8 sm:p-14 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 bg-bg-card/70 hover:bg-brand-vanilla/20 dark:hover:bg-brand-indigo/10 group shadow-xs hover:shadow-md"
+      className="border border-dashed border-[#D4BCC8]/40 hover:border-[#D4BCC8] rounded-[28px] p-8 sm:p-12 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 bg-[#F0E7D5] dark:bg-[#111113] hover:opacity-95 group"
     >
       <input
         ref={fileInputRef}
@@ -48,16 +48,16 @@ export default function DropZone({
         onChange={handleChange}
         className="hidden"
       />
-      <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105">
-        <UploadCloud className="w-7 h-7" />
+      <div className="w-12 h-12 bg-[#D4BCC8]/30 dark:bg-white/10 text-[#17191D] dark:text-[#F0E7D5] rounded-full flex items-center justify-center mb-3">
+        <UploadCloud className="w-6 h-6" />
       </div>
-      <h3 className="text-lg sm:text-xl font-normal text-brand-slate dark:text-white">
+      <h3 className="text-base sm:text-lg font-normal text-[#17191D] dark:text-white">
         {label}
       </h3>
-      <p className="text-xs sm:text-sm text-text-muted mt-1 font-light">
-        Drag &amp; drop your files here, or click to browse
+      <p className="text-xs text-[#17191D]/60 dark:text-[#D4BCC8]/60 mt-1 font-light">
+        Drag &amp; drop your files here, or tap to browse
       </p>
-      <span className="text-[11px] font-light text-text-dim tracking-wider mt-3 block">
+      <span className="text-[11px] font-light text-[#17191D]/50 dark:text-[#D4BCC8]/50 mt-2 block">
         {sublabel}
       </span>
     </div>

@@ -30,17 +30,17 @@ export default function FileRow({ item, onRemove, onCompressSingle }: FileRowPro
   const downloadFilename = item.outputName || item.file.name;
 
   return (
-    <div className="bg-[#212842] text-[#F0E7D5] border border-white/10 rounded-[28px] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm transition-all duration-200">
+    <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[20px] p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all duration-200">
       {/* File Info */}
-      <div className="flex items-center gap-3.5 min-w-0">
-        <div className="w-10 h-10 rounded-full bg-[#D4BCC8] text-[#17191D] flex items-center justify-center shrink-0">
+      <div className="flex items-center gap-3 min-w-0">
+        <div className="w-8 h-8 rounded-full bg-[#D4BCC8] text-black flex items-center justify-center shrink-0">
           {isVideo ? <Film className="w-4 h-4" /> : <ImageIcon className="w-4 h-4" />}
         </div>
         <div className="min-w-0 space-y-0.5">
-          <p className="text-sm font-normal text-white truncate max-w-[200px] sm:max-w-[320px]">
+          <p className="text-xs sm:text-sm font-normal text-white truncate max-w-[200px] sm:max-w-[320px]">
             {item.file.name}
           </p>
-          <div className="flex items-center gap-2 text-xs text-[#F0E7D5]/70 font-light">
+          <div className="flex items-center gap-2 text-[11px] text-[#F0E7D5]/70 font-light">
             <span className="font-mono">{formatBytes(item.originalSize)}</span>
             {item.compressedSize && (
               <>
@@ -60,11 +60,11 @@ export default function FileRow({ item, onRemove, onCompressSingle }: FileRowPro
       </div>
 
       {/* Progress / Actions */}
-      <div className="flex items-center gap-2.5 self-end sm:self-auto">
+      <div className="flex items-center gap-2 self-end sm:self-auto">
         {item.status === "idle" && onCompressSingle && (
           <button
             onClick={() => onCompressSingle(item.id)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#F0E7D5] text-[#17191D] text-xs font-normal uppercase tracking-wider active:scale-98 transition-all cursor-pointer shadow-sm"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F0E7D5] hover:bg-[#D4BCC8] text-black text-xs font-normal uppercase tracking-wider transition-all cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Compress</span>
@@ -81,7 +81,7 @@ export default function FileRow({ item, onRemove, onCompressSingle }: FileRowPro
         {item.status === "done" && item.compressedBlob && (
           <button
             onClick={() => downloadSingle(item.compressedBlob!, downloadFilename)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#D4BCC8] hover:bg-white text-[#17191D] text-xs font-normal uppercase tracking-wider active:scale-98 transition-all cursor-pointer shadow-sm"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#D4BCC8] hover:bg-white text-black text-xs font-normal uppercase tracking-wider transition-all cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
             <span>Download</span>
@@ -96,7 +96,7 @@ export default function FileRow({ item, onRemove, onCompressSingle }: FileRowPro
 
         <button
           onClick={() => onRemove(item.id)}
-          className="text-white/50 hover:text-red-400 transition-colors p-1.5 rounded-full hover:bg-white/10 cursor-pointer"
+          className="text-white/40 hover:text-red-400 transition-colors p-1 rounded-full hover:bg-white/10 cursor-pointer"
           title="Remove item"
         >
           <X className="w-3.5 h-3.5" />

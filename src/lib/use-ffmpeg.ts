@@ -14,8 +14,8 @@ interface LevelConfig {
 }
 
 const LEVEL_CONFIGS: Record<VideoLevel, LevelConfig> = {
-  low:     { crf: "23", preset: "veryfast", audio: "96k" },
-  balance: { crf: "28", preset: "veryfast", audio: "64k" },
+  low:     { crf: "24", preset: "ultrafast", audio: "96k" },
+  balance: { crf: "28", preset: "ultrafast", audio: "64k" },
   high:    { crf: "32", preset: "ultrafast", audio: "48k" },
 };
 
@@ -27,7 +27,7 @@ function loadScript(src: string): Promise<void> {
     script.src = src;
     script.async = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load ${src}`));
+    script.onerror = () => reject(new Error(`Failed to load script`));
     document.body.appendChild(script);
   });
 }
@@ -44,12 +44,11 @@ export function useFFmpeg() {
     setLoading(true);
     setLoadError(null);
     try {
-      // Load UMD version via script tag to bypass bundler Worker resolution issues
       await loadScript(FFMPEG_JS_URL);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const FFmpegClass = (window as any).FFmpegWASM?.FFmpeg;
       if (!FFmpegClass) {
-        throw new Error("FFmpeg not found on global window");
+        throw new Error("Optimizer core unavailable");
       }
 
       const ff = new FFmpegClass();
@@ -61,7 +60,7 @@ export function useFFmpeg() {
       });
       setLoaded(true);
     } catch (err) {
-      setLoadError(String(err));
+      setLoadError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
     }
@@ -73,48 +72,51 @@ export function useFFmpeg() {
       level: VideoLevel = "balance",
       onProgress?: (pct: number) => void
     ): Promise<Blob> => {
-      if (!ffmpegRef.current) throw new Error("FFmpeg not loaded");
+      if (!ffmpegRef.current) throw new Error("Optimizer core not loaded");
       const ff = ffmpegRef.current;
 
       const ext = file.name.split(".").pop()?.toLowerCase() ?? "mp4";
-      const inputName = `input.${ext}`;
-      const outputName = "output.mp4";
+      const safeInput = `input_${Date.now()}.${ext}`;
+      const safeOutput = `output_${Date.now()}.mp4`;
 
-      const handleProgress = ({ progress }: { progress: number }) => {
-        onProgress?.(Math.min(99, Math.round(progress * 100)));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const handleProgress = ({ progress }: any) => {
+        onProgress?.(Math.min(99, Math.max(1, Math.round(progress * 100))));
       };
       ff.on("progress", handleProgress);
 
       try {
         const fileData = new Uint8Array(await file.arrayBuffer());
-        await ff.writeFile(inputName, fileData);
+        await ff.writeFile(safeInput, fileData);
         const { crf, preset, audio } = LEVEL_CONFIGS[level];
 
+        // Compatible scaling filter with even dimensions for H.264
         const args = [
-          "-i", inputName,
+          "-i", safeInput,
           "-c:v", "libx264",
           "-preset", preset,
           "-crf", crf,
-          "-vf", "scale='min(1920,iw)':'min(1920,ih)':force_original_aspect_ratio=decrease",
+          "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
           "-c:a", "aac",
           "-b:a", audio,
           "-movflags", "+faststart",
-          outputName,
+          "-pix_fmt", "yuv420p",
+          safeOutput,
         ];
 
         const ret = await ff.exec(args);
-        if (ret !== 0) throw new Error("FFmpeg compression failed");
+        if (ret !== 0) throw new Error("Video compression failed");
 
-        const data = await ff.readFile(outputName);
+        const data = await ff.readFile(safeOutput);
         const result = new Blob([new Uint8Array(data)], {
           type: "video/mp4",
         });
 
-        return result.size < file.size ? result : file;
+        return result;
       } finally {
         ff.off("progress", handleProgress);
-        try { await ff.deleteFile(inputName); } catch { /* ok */ }
-        try { await ff.deleteFile(outputName); } catch { /* ok */ }
+        try { await ff.deleteFile(safeInput); } catch { /* ok */ }
+        try { await ff.deleteFile(safeOutput); } catch { /* ok */ }
       }
     },
     []

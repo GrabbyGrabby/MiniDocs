@@ -4,84 +4,49 @@
   --font-sans: var(--font-poppins), 'Poppins', system-ui, sans-serif;
   --font-poppins: var(--font-poppins), 'Poppins', system-ui, sans-serif;
   
-  /* Palette Tokens from Reference Images */
-  --color-deep-slate: #17191D;
-  --color-soft-lilac: #D4BCC8;
-  --color-midnight-indigo: #212842;
+  /* Strict 2-color palette: Vanilla Cream & Soft Lilac, with Pure Black for contrast */
   --color-vanilla-cream: #F0E7D5;
-  --color-sage-soft: #A2C4A5;
-  --color-sage-bg: #8EB69B;
-  --color-sage-dark: #274C40;
-  --color-deep-pine: #153830;
-  --color-gold-accent: #C6A75E;
-  --color-warm-beige: #E8DCC8;
-  
-  /* Theme tokens */
-  --color-bg-base: #F0E7D5;
-  --color-bg-card: #212842;
-  --color-text-base: #212842;
-  --color-text-muted: #535B74;
-  --color-border-base: #D8CEB9;
+  --color-soft-lilac: #D4BCC8;
+  --color-pure-black: #000000;
+  --color-card-dark: #121214;
+
+  --color-bg-base: #000000;
+  --color-bg-card: #121214;
+  --color-text-base: #F0E7D5;
+  --color-text-muted: #D4BCC8;
+  --color-border-base: rgba(212, 188, 200, 0.15);
 }
 
 :root {
-  --color-deep-slate: #17191D;
-  --color-soft-lilac: #D4BCC8;
-  --color-midnight-indigo: #212842;
   --color-vanilla-cream: #F0E7D5;
-  --color-sage-soft: #A2C4A5;
-  --color-sage-bg: #8EB69B;
-  --color-sage-dark: #274C40;
-  --color-deep-pine: #153830;
-  --color-gold-accent: #C6A75E;
-  --color-warm-beige: #E8DCC8;
+  --color-soft-lilac: #D4BCC8;
+  --color-pure-black: #000000;
+  --color-card-dark: #121214;
 
-  --color-bg-base: #F0E7D5;
-  --color-bg-card: #212842;
-  --color-text-base: #212842;
-  --color-text-muted: #535B74;
-  --color-border-base: #D8CEB9;
-}
-
-.dark {
-  --color-bg-base: #17191D;
-  --color-bg-card: #212842;
+  --color-bg-base: #000000;
+  --color-bg-card: #121214;
   --color-text-base: #F0E7D5;
   --color-text-muted: #D4BCC8;
-  --color-border-base: #2B3354;
+  --color-border-base: rgba(212, 188, 200, 0.15);
 }
 
-/* MengTo Specular High-End Rim lighting */
-.specular-card {
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.16), 0 20px 40px -15px rgba(23, 25, 29, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.specular-pill {
-  box-shadow: inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.25), 0 8px 20px -6px rgba(0, 0, 0, 0.18);
-}
-
-/* Fluid Organic Curved Cards from Reference */
-.curved-card-lg {
-  border-radius: 40px;
-}
-
-.curved-card-md {
-  border-radius: 30px;
-}
-
-.curved-pill {
-  border-radius: 9999px;
-}
-
-/* Poppins global font enforcement */
+/* Poppins global font enforcement - slim weight */
 * {
   font-family: var(--font-poppins), 'Poppins', sans-serif !important;
+  font-weight: 300;
 }
 
-html {
-  background-color: var(--color-bg-base);
-  color: var(--color-text-base);
+b, strong, .font-medium, .font-normal {
+  font-weight: 400 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300 !important;
+}
+
+html, body {
+  background-color: #000000 !important;
+  color: #F0E7D5 !important;
 }
 
 /* Hide scrollbars */

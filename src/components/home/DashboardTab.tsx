@@ -33,71 +33,71 @@ export default function DashboardTab() {
     <div className="space-y-6 text-left">
       <div className="flex justify-between items-end">
         <div>
-          <h2 className="text-2xl sm:text-4xl font-light text-[#17191D] dark:text-[#F0E7D5] tracking-tight">
-            Processing Dashboard
+          <h2 className="text-2xl sm:text-3xl font-light text-[#F0E7D5] tracking-tight">
+            Dashboard
           </h2>
-          <p className="text-xs sm:text-sm text-[#535B74] dark:text-[#D4BCC8] mt-1 font-light">
-            Local device analytics of your compressed media.
+          <p className="text-xs text-[#D4BCC8]/70 mt-1 font-light">
+            Device session analytics.
           </p>
         </div>
         {history.length > 0 && (
           <button
             onClick={handleClear}
-            className="text-xs font-normal text-red-400 hover:underline cursor-pointer"
+            className="text-xs font-light text-[#D4BCC8] hover:underline cursor-pointer"
           >
             Clear History
           </button>
         )}
       </div>
 
-      {/* Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-[#212842] text-[#F0E7D5] border border-white/10 rounded-[28px] p-6 space-y-1 shadow-sm text-center">
-          <span className="text-[10px] uppercase font-medium text-[#D4BCC8] tracking-widest block">
+      {/* Metric Cards - 2 colors only */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[20px] p-5 space-y-1 shadow-sm text-center">
+          <span className="text-[10px] uppercase font-light text-[#D4BCC8] tracking-widest block">
             Total Files
           </span>
-          <div className="text-3xl font-light text-white mt-1">
+          <div className="text-2xl sm:text-3xl font-light text-white mt-1">
             {history.length}
           </div>
         </div>
-        <div className="bg-[#212842] text-[#F0E7D5] border border-white/10 rounded-[28px] p-6 space-y-1 shadow-sm text-center">
-          <span className="text-[10px] uppercase font-medium text-[#D4BCC8] tracking-widest block">
+        <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[20px] p-5 space-y-1 shadow-sm text-center">
+          <span className="text-[10px] uppercase font-light text-[#D4BCC8] tracking-widest block">
             Data Saved
           </span>
-          <div className="text-3xl font-light text-[#D4BCC8] mt-1">
+          <div className="text-2xl sm:text-3xl font-light text-[#D4BCC8] mt-1">
             {formatBytes(totalSaved)}
           </div>
         </div>
-        <div className="bg-white text-[#17191D] rounded-[28px] p-6 space-y-1 shadow-sm text-center">
-          <span className="text-[10px] uppercase font-medium text-[#17191D]/70 tracking-widest block">
+        <div className="bg-[#F0E7D5] text-black rounded-[20px] p-5 space-y-1 shadow-sm text-center">
+          <span className="text-[10px] uppercase font-light text-black/60 tracking-widest block">
             Average Reduction
           </span>
-          <div className="text-3xl font-medium text-[#17191D] mt-1">
+          <div className="text-2xl sm:text-3xl font-normal text-black mt-1">
             {totalOrig > 0 ? reductionPct(totalOrig, totalComp) : 0}%
           </div>
         </div>
       </div>
 
       {/* History Card */}
-      <div className="bg-[#212842] text-[#F0E7D5] border border-white/10 rounded-[28px] overflow-hidden shadow-sm p-2">
-        <div className="px-5 py-3 border-b border-white/10 font-medium text-xs uppercase tracking-wider text-[#D4BCC8]">
-          Recent Compressions
+      <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[24px] overflow-hidden shadow-sm p-2">
+        <div className="px-4 py-2.5 border-b border-white/10 font-normal text-xs uppercase tracking-wider text-[#D4BCC8]">
+          Recent Files
         </div>
         {history.length === 0 ? (
-          <div className="p-8 text-center text-xs text-[#F0E7D5]/70 font-light">
-            No files compressed yet. Go to Compress to test!
+          <div className="p-8 text-center text-xs text-[#F0E7D5]/60 font-light">
+            No files compressed yet.
           </div>
         ) : (
           <div className="divide-y divide-white/10">
             {history.map((h, i) => (
-              <div key={i} className="px-5 py-3.5 flex items-center justify-between text-xs">
+              <div key={i} className="px-4 py-3 flex items-center justify-between text-xs">
                 <div className="truncate max-w-[200px] sm:max-w-[320px]">
                   <p className="font-normal text-white truncate">{h.name}</p>
-                  <span className="text-[10px] text-[#D4BCC8]/80">{h.date} • {h.type.toUpperCase()}</span>
+                  <span className="text-[10px] text-[#D4BCC8]/70">{h.date} • {h.type.toUpperCase()}</span>
                 </div>
-                <div className="text-right">
-                  <span className="text-[#F0E7D5]/60">{formatBytes(h.orig)} → </span>
-                  <span className="text-[#D4BCC8] font-normal text-xs">{formatBytes(h.comp)}</span>
+                <div className="text-right font-light">
+                  <span className="text-[#F0E7D5]/50">{formatBytes(h.orig)} → </span>
+                  <span className="text-[#D4BCC8] text-xs font-normal">{formatBytes(h.comp)}</span>
                 </div>
               </div>
             ))}
