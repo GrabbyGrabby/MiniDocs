@@ -13,6 +13,7 @@ interface CompressTabProps {
 
 export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
   const [items, setItems] = useState<ProcessedItem[]>([]);
+  const [activeMediaTab, setActiveMediaTab] = useState<"image" | "video">("image");
   const [imgLevel, setImgLevel] = useState<CompressionLevel>("balance");
   const [vidLevel, setVidLevel] = useState<VideoLevel>("balance");
   const [imgFormat, setImgFormat] = useState<ImageOutputFormat>("webp");
@@ -28,6 +29,10 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
       originalSize: file.size,
     }));
     setItems((prev) => [...prev, ...newItems]);
+
+    if (files.some((f) => isVideoFile(f))) {
+      setActiveMediaTab("video");
+    }
   }
 
   function handleRemove(id: string) {
@@ -146,101 +151,155 @@ export default function CompressTab({ onBytesProcessed }: CompressTabProps) {
         </p>
       </div>
 
-      {/* Previous Curved Settings Pill Card with Smart Video Auto-Reveal */}
-      <div
-        className={`grid grid-cols-1 ${
-          hasVideos ? "sm:grid-cols-3" : "sm:grid-cols-2"
-        } gap-4 p-5 rounded-[24px] bg-[#F0E7D5] text-[#000000] border border-[#D4BCC8]/40 shadow-sm transition-all`}
-      >
-        {/* Output Format (Export As) */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
-              Format (Export As)
-            </label>
-            <span className="text-[10px] font-mono text-[#000000]/50 uppercase">{imgFormat}</span>
-          </div>
-          <div className="flex gap-2">
-            {(["webp", "jpeg", "png"] as ImageOutputFormat[]).map((f) => {
-              const active = imgFormat === f;
-              return (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => setImgFormat(f)}
-                  className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
-                    active
-                      ? "bg-[#000000] text-[#FFFFFF]"
-                      : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
-                  }`}
-                >
-                  {f === "jpeg" ? "jpg" : f}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Image Level (Quality) */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
-              Image Quality
-            </label>
-            <span className="text-[10px] font-mono text-[#000000]/50">
-              {imgLevel === "high" ? "Max" : imgLevel === "balance" ? "Mid" : "High Q"}
+      {/* Compact Curved Settings Bar (Space-efficient & clean) */}
+      <div className="bg-[#F0E7D5] text-[#000000] border border-[#D4BCC8]/40 rounded-[24px] p-4 sm:p-5 space-y-3.5 shadow-sm">
+        {/* Switcher Bar: Appears ONLY when a video is present in the queue */}
+        {hasVideos && (
+          <div className="flex items-center justify-between border-b border-black/10 pb-3">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveMediaTab("image")}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-normal transition-all cursor-pointer ${
+                  activeMediaTab === "image"
+                    ? "bg-[#000000] text-[#FFFFFF] shadow-sm"
+                    : "bg-black/5 text-[#000000]/70 hover:bg-black/10"
+                }`}
+              >
+                Image Settings
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveMediaTab("video")}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-normal transition-all cursor-pointer ${
+                  activeMediaTab === "video"
+                    ? "bg-[#000000] text-[#FFFFFF] shadow-sm"
+                    : "bg-black/5 text-[#000000]/70 hover:bg-black/10"
+                }`}
+              >
+                Video Settings
+              </button>
+            </div>
+            <span className="text-[11px] font-light text-[#000000]/60">
+              {activeMediaTab === "image" ? "PNG • JPG • WebP" : "MP4 • MOV • WebM"}
             </span>
           </div>
-          <div className="flex gap-2">
-            {(["high", "balance", "low"] as CompressionLevel[]).map((lvl) => {
-              const active = imgLevel === lvl;
-              return (
-                <button
-                  key={lvl}
-                  type="button"
-                  onClick={() => setImgLevel(lvl)}
-                  className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
-                    active
-                      ? "bg-[#000000] text-[#FFFFFF]"
-                      : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
-                  }`}
-                >
-                  {lvl === "high" ? "Max" : lvl === "balance" ? "Mid" : "High Q"}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        )}
 
-        {/* Video Level - Appears ONLY when video is added */}
-        {hasVideos && (
-          <div className="space-y-2 animate-in fade-in duration-200">
-            <div className="flex items-center justify-between">
-              <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
-                Video Level
-              </label>
-              <span className="text-[10px] font-mono text-[#000000]/50">
-                {vidLevel === "high" ? "Max" : vidLevel === "balance" ? "Mid" : "High Q"}
-              </span>
+        {/* IMAGE SETTINGS: Clearly distinguished columns taking minimal vertical space */}
+        {(!hasVideos || activeMediaTab === "image") && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Format Column */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
+                  Export Format
+                </label>
+                <span className="text-[10px] font-mono text-[#000000]/50 uppercase">{imgFormat}</span>
+              </div>
+              <div className="flex gap-2">
+                {(["webp", "jpeg", "png"] as ImageOutputFormat[]).map((f) => {
+                  const active = imgFormat === f;
+                  return (
+                    <button
+                      key={f}
+                      type="button"
+                      onClick={() => setImgFormat(f)}
+                      className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
+                        active
+                          ? "bg-[#000000] text-[#FFFFFF]"
+                          : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
+                      }`}
+                    >
+                      {f === "jpeg" ? "jpg" : f}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex gap-2">
-              {(["high", "balance", "low"] as VideoLevel[]).map((lvl) => {
-                const active = vidLevel === lvl;
-                return (
-                  <button
-                    key={lvl}
-                    type="button"
-                    onClick={() => setVidLevel(lvl)}
-                    className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
-                      active
-                        ? "bg-[#000000] text-[#FFFFFF]"
-                        : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
-                    }`}
-                  >
-                    {lvl === "high" ? "Max" : lvl === "balance" ? "Mid" : "High Q"}
-                  </button>
-                );
-              })}
+
+            {/* Quality Level Column */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
+                  Quality Level
+                </label>
+                <span className="text-[10px] font-mono text-[#000000]/50">
+                  {imgLevel === "high" ? "Max" : imgLevel === "balance" ? "Mid" : "High Q"}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                {(["high", "balance", "low"] as CompressionLevel[]).map((lvl) => {
+                  const active = imgLevel === lvl;
+                  return (
+                    <button
+                      key={lvl}
+                      type="button"
+                      onClick={() => setImgLevel(lvl)}
+                      className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
+                        active
+                          ? "bg-[#000000] text-[#FFFFFF]"
+                          : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
+                      }`}
+                    >
+                      {lvl === "high" ? "Max" : lvl === "balance" ? "Mid" : "High Q"}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* VIDEO SETTINGS: Shows ONLY when video is added AND active tab is video */}
+        {hasVideos && activeMediaTab === "video" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-in fade-in duration-200">
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
+                  Export Format
+                </label>
+                <span className="text-[10px] font-mono text-[#000000]/50">MP4</span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  disabled
+                  className="flex-1 py-1.5 rounded-full text-xs font-normal bg-[#000000] text-[#FFFFFF] cursor-default"
+                >
+                  Universal MP4 (H.264)
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-[10px] font-normal uppercase tracking-widest text-[#000000]/70 block">
+                  Video Quality Level
+                </label>
+                <span className="text-[10px] font-mono text-[#000000]/50">
+                  {vidLevel === "high" ? "Max" : vidLevel === "balance" ? "Mid" : "High Q"}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                {(["high", "balance", "low"] as VideoLevel[]).map((lvl) => {
+                  const active = vidLevel === lvl;
+                  return (
+                    <button
+                      key={lvl}
+                      type="button"
+                      onClick={() => setVidLevel(lvl)}
+                      className={`flex-1 py-1.5 rounded-full text-xs font-normal uppercase transition-all cursor-pointer ${
+                        active
+                          ? "bg-[#000000] text-[#FFFFFF]"
+                          : "bg-[#000000]/5 text-[#000000] hover:bg-[#000000]/10"
+                      }`}
+                    >
+                      {lvl === "high" ? "Max" : lvl === "balance" ? "Mid" : "High Q"}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}
