@@ -4,22 +4,27 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
-    <section className="relative pt-16 sm:pt-24 pb-8 text-center space-y-6 max-w-4xl mx-auto z-10 px-4">
-      {/* Exact headline requested: Compress files. Store nothing. (Milky / Soft Lilac color) */}
-      <div className="space-y-4">
+    <section className="relative pt-8 sm:pt-16 pb-8 text-center space-y-6 max-w-4xl mx-auto z-10 px-4">
+      {/* Top left minidocs label */}
+      <div className="flex justify-start">
+        <span className="text-xs font-light tracking-widest uppercase text-[#D4BCC8] border border-[#D4BCC8]/30 px-3 py-1 rounded-full bg-white/5">
+          MiniDocs
+        </span>
+      </div>
+
+      {/* Main Headline: Two noticeably distinct colors */}
+      <div className="space-y-4 pt-2">
         <motion.h1
           initial={{ y: 15, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl sm:text-7xl md:text-8xl font-light tracking-tight leading-[1.08] text-white"
+          className="text-5xl sm:text-7xl md:text-8xl font-light tracking-tight leading-[1.08]"
         >
-          Compress files. <br />
-          <span className="text-[#D4BCC8] font-light">
-            Store nothing.
-          </span>
+          <span className="text-[#F0E7D5]">Compress files.</span> <br />
+          <span className="text-[#D4BCC8]">Store nothing.</span>
         </motion.h1>
 
-        {/* Subtitle in vanilla cream */}
+        {/* Clean subtitle */}
         <motion.p
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

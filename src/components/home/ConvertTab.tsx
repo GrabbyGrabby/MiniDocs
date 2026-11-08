@@ -44,7 +44,7 @@ export default function ConvertTab({ onBytesProcessed }: ConvertTabProps) {
         <h2 className="text-2xl sm:text-3xl font-light text-[#F0E7D5] tracking-tight">
           Convert Format
         </h2>
-        <p className="text-xs text-[#D4BCC8]/70 mt-1 font-light">
+        <p className="text-xs text-[#D4BCC8] mt-1 font-light">
           Transform images across modern formats instantly.
         </p>
       </div>
@@ -60,23 +60,23 @@ export default function ConvertTab({ onBytesProcessed }: ConvertTabProps) {
               sublabel="PNG, JPEG, WebP up to 50 MB"
             />
           ) : (
-            <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[24px] p-5 space-y-4 shadow-sm">
-              <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                <span className="text-xs sm:text-sm font-normal truncate max-w-[240px] text-white">
+            <div className="bg-[#F0E7D5] text-[#000000] border border-[#D4BCC8]/40 rounded-[24px] p-5 space-y-4 shadow-sm">
+              <div className="flex justify-between items-center border-b border-black/10 pb-3">
+                <span className="text-xs sm:text-sm font-normal truncate max-w-[240px] text-black">
                   {file.name}
                 </span>
                 <button
                   type="button"
                   onClick={() => { setFile(null); setConvertedBlob(null); }}
-                  className="text-xs font-light text-[#D4BCC8] hover:underline cursor-pointer uppercase"
+                  className="text-xs font-light text-[#000000]/70 hover:underline cursor-pointer uppercase"
                 >
                   Change File
                 </button>
               </div>
-              <div className="flex items-center justify-between text-xs text-[#F0E7D5]/70">
+              <div className="flex items-center justify-between text-xs text-[#000000]/70">
                 <span>Original: {formatBytes(file.size)}</span>
                 {convertedBlob && (
-                  <span className="text-[#D4BCC8] font-normal text-xs">
+                  <span className="text-[#000000] font-normal text-xs">
                     Converted: {formatBytes(convertedBlob.size)} [{outputExt.toUpperCase()}]
                   </span>
                 )}
@@ -86,9 +86,9 @@ export default function ConvertTab({ onBytesProcessed }: ConvertTabProps) {
         </div>
 
         {/* Converter Controls Card */}
-        <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[24px] p-5 space-y-4 shadow-sm">
-          <h3 className="text-xs font-normal uppercase tracking-widest text-[#D4BCC8]">
-            Target Format: <span className="text-white">{targetFormat.toUpperCase()}</span>
+        <div className="bg-[#F0E7D5] text-[#000000] border border-[#D4BCC8]/40 rounded-[24px] p-5 space-y-4 shadow-sm">
+          <h3 className="text-xs font-normal uppercase tracking-widest text-[#000000]/70">
+            Target Format: <span className="text-black">{targetFormat.toUpperCase()}</span>
           </h3>
           <div className="flex gap-2">
             {(["webp", "png", "jpeg"] as ImageOutputFormat[]).map((f) => {
@@ -100,8 +100,8 @@ export default function ConvertTab({ onBytesProcessed }: ConvertTabProps) {
                   onClick={() => setTargetFormat(f)}
                   className={`flex-1 py-1.5 text-xs font-normal uppercase rounded-full border transition-all cursor-pointer ${
                     active
-                      ? "bg-[#F0E7D5] text-black border-[#F0E7D5]"
-                      : "border-white/10 text-[#F0E7D5]/70 hover:border-white/30"
+                      ? "bg-[#000000] text-[#FFFFFF] border-[#000000]"
+                      : "border-black/20 text-[#000000]/70 hover:border-black/50"
                   }`}
                 >
                   {f}
@@ -114,7 +114,7 @@ export default function ConvertTab({ onBytesProcessed }: ConvertTabProps) {
             type="button"
             disabled={!file || isConverting}
             onClick={handleConvert}
-            className="w-full py-2.5 rounded-full text-xs font-normal uppercase tracking-wider bg-[#F0E7D5] text-black hover:bg-[#D4BCC8] transition-all disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed shadow-sm active:scale-98"
+            className="w-full py-2.5 rounded-full text-xs font-normal uppercase tracking-wider bg-[#000000] text-[#FFFFFF] hover:bg-[#D4BCC8] hover:text-[#000000] transition-all disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed shadow-sm active:scale-98"
           >
             {isConverting ? "Converting..." : "Convert Now"}
           </button>
@@ -128,7 +128,7 @@ export default function ConvertTab({ onBytesProcessed }: ConvertTabProps) {
                   file.name.replace(/\.[^.]+$/, `.${outputExt}`)
                 )
               }
-              className="w-full py-2.5 rounded-full text-xs font-normal uppercase tracking-wider bg-[#D4BCC8] text-black hover:bg-white transition-all cursor-pointer shadow-sm active:scale-98"
+              className="w-full py-2.5 rounded-full text-xs font-normal uppercase tracking-wider bg-[#D4BCC8] text-[#000000] hover:bg-black hover:text-white transition-all cursor-pointer shadow-sm active:scale-98"
             >
               Download File
             </button>

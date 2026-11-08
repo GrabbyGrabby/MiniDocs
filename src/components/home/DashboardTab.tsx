@@ -36,7 +36,7 @@ export default function DashboardTab() {
           <h2 className="text-2xl sm:text-3xl font-light text-[#F0E7D5] tracking-tight">
             Dashboard
           </h2>
-          <p className="text-xs text-[#D4BCC8]/70 mt-1 font-light">
+          <p className="text-xs text-[#D4BCC8] mt-1 font-light">
             Device session analytics.
           </p>
         </div>
@@ -50,26 +50,26 @@ export default function DashboardTab() {
         )}
       </div>
 
-      {/* Metric Cards - 2 colors only */}
+      {/* Metric Cards - Pure Black, Vanilla Cream, Soft Lilac */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[20px] p-5 space-y-1 shadow-sm text-center">
-          <span className="text-[10px] uppercase font-light text-[#D4BCC8] tracking-widest block">
+        <div className="bg-[#F0E7D5] text-black border border-[#D4BCC8]/40 rounded-[20px] p-5 space-y-1 shadow-sm text-center">
+          <span className="text-[10px] uppercase font-light text-black/60 tracking-widest block">
             Total Files
           </span>
-          <div className="text-2xl sm:text-3xl font-light text-white mt-1">
+          <div className="text-2xl sm:text-3xl font-normal text-black mt-1">
             {history.length}
           </div>
         </div>
-        <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[20px] p-5 space-y-1 shadow-sm text-center">
-          <span className="text-[10px] uppercase font-light text-[#D4BCC8] tracking-widest block">
+        <div className="bg-[#F0E7D5] text-black border border-[#D4BCC8]/40 rounded-[20px] p-5 space-y-1 shadow-sm text-center">
+          <span className="text-[10px] uppercase font-light text-black/60 tracking-widest block">
             Data Saved
           </span>
-          <div className="text-2xl sm:text-3xl font-light text-[#D4BCC8] mt-1">
+          <div className="text-2xl sm:text-3xl font-normal text-black mt-1">
             {formatBytes(totalSaved)}
           </div>
         </div>
-        <div className="bg-[#F0E7D5] text-black rounded-[20px] p-5 space-y-1 shadow-sm text-center">
-          <span className="text-[10px] uppercase font-light text-black/60 tracking-widest block">
+        <div className="bg-[#D4BCC8] text-black rounded-[20px] p-5 space-y-1 shadow-sm text-center">
+          <span className="text-[10px] uppercase font-light text-black/70 tracking-widest block">
             Average Reduction
           </span>
           <div className="text-2xl sm:text-3xl font-normal text-black mt-1">
@@ -79,25 +79,25 @@ export default function DashboardTab() {
       </div>
 
       {/* History Card */}
-      <div className="bg-[#141416] text-[#F0E7D5] border border-[#D4BCC8]/20 rounded-[24px] overflow-hidden shadow-sm p-2">
-        <div className="px-4 py-2.5 border-b border-white/10 font-normal text-xs uppercase tracking-wider text-[#D4BCC8]">
+      <div className="bg-[#F0E7D5] text-black border border-[#D4BCC8]/40 rounded-[24px] overflow-hidden shadow-sm p-2">
+        <div className="px-4 py-2.5 border-b border-black/10 font-normal text-xs uppercase tracking-wider text-black/70">
           Recent Files
         </div>
         {history.length === 0 ? (
-          <div className="p-8 text-center text-xs text-[#F0E7D5]/60 font-light">
+          <div className="p-8 text-center text-xs text-black/60 font-light">
             No files compressed yet.
           </div>
         ) : (
-          <div className="divide-y divide-white/10">
+          <div className="divide-y divide-black/10">
             {history.map((h, i) => (
               <div key={i} className="px-4 py-3 flex items-center justify-between text-xs">
                 <div className="truncate max-w-[200px] sm:max-w-[320px]">
-                  <p className="font-normal text-white truncate">{h.name}</p>
-                  <span className="text-[10px] text-[#D4BCC8]/70">{h.date} • {h.type.toUpperCase()}</span>
+                  <p className="font-normal text-black truncate">{h.name}</p>
+                  <span className="text-[10px] text-black/60">{h.date} • {h.type.toUpperCase()}</span>
                 </div>
                 <div className="text-right font-light">
-                  <span className="text-[#F0E7D5]/50">{formatBytes(h.orig)} → </span>
-                  <span className="text-[#D4BCC8] text-xs font-normal">{formatBytes(h.comp)}</span>
+                  <span className="text-black/50">{formatBytes(h.orig)} → </span>
+                  <span className="text-black text-xs font-normal">{formatBytes(h.comp)}</span>
                 </div>
               </div>
             ))}
