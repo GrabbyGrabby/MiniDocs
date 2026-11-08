@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
 import "./globals.css";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -48,9 +50,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} font-sans min-h-full flex flex-col bg-bg-base text-text-base antialiased selection:bg-brand-lilac/30 selection:text-text-base`}
+        className={`${poppins.variable} font-sans min-h-full flex flex-col bg-bg-base text-text-base antialiased selection:bg-[#D4BCC8]/40 selection:text-[#17191D]`}
       >
-        {children}
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );

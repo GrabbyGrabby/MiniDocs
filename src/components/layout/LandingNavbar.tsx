@@ -2,51 +2,69 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function LandingNavbar() {
   return (
-    <div className="fixed inset-x-0 top-0 z-50 w-full px-4 sm:px-8 pt-6">
-      <header className="mx-auto max-w-5xl h-18 bg-[#212842] text-[#F0E7D5] px-6 sm:px-8 flex items-center justify-between rounded-full shadow-[0_12px_40px_rgba(23,25,29,0.25)] border border-white/10 transition-all">
-        {/* Brand */}
-        <Link href="/" className="flex items-center gap-3 group select-none">
-          <div className="w-10 h-10 rounded-full bg-[#D4BCC8] text-[#17191D] flex items-center justify-center font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">
-            ✦
+    <div className="fixed inset-x-0 top-0 z-50 w-full px-4 sm:px-6 pt-5 pointer-events-none">
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 25 }}
+        className="pointer-events-auto mx-auto max-w-4xl h-16 bg-[#17191D]/90 dark:bg-[#17191D]/95 backdrop-blur-xl text-[#F0E7D5] px-4 sm:px-6 flex items-center justify-between rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-white/15 transition-all"
+      >
+        {/* Brand Capsule with SJ-style avatar */}
+        <Link href="/" className="flex items-center gap-2.5 group select-none">
+          <div className="w-9 h-9 rounded-full bg-[#D4BCC8] text-[#17191D] flex items-center justify-center font-black text-xs tracking-tighter shadow-sm group-hover:scale-105 transition-transform duration-200">
+            MD.
           </div>
-          <div className="flex flex-col">
-            <span className="text-2xl font-black tracking-tight text-white leading-none">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-base font-black tracking-tight text-white">
               Mini<span className="text-[#D4BCC8]">Docs</span>
-            </span>
-            <span className="text-[10px] font-bold tracking-widest text-[#F0E7D5]/80 uppercase mt-0.5">
-              In-Browser Media Engine
             </span>
           </div>
         </Link>
 
-        {/* Center Nav */}
-        <nav className="hidden md:flex items-center gap-8 text-xs font-bold tracking-wider uppercase text-white/90">
-          <a href="#demo" className="hover:text-[#D4BCC8] transition-colors">
-            Try Demo
+        {/* Center Pill Nav links */}
+        <nav className="hidden md:flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-2 py-1 text-xs font-semibold tracking-wide text-[#F0E7D5]/90">
+          <a
+            href="#demo"
+            className="px-4 py-1.5 rounded-full hover:bg-white/10 hover:text-white transition-all"
+          >
+            Playground
           </a>
-          <a href="#how" className="hover:text-[#D4BCC8] transition-colors">
+          <a
+            href="#features"
+            className="px-4 py-1.5 rounded-full hover:bg-white/10 hover:text-white transition-all"
+          >
+            Capabilities
+          </a>
+          <a
+            href="#how"
+            className="px-4 py-1.5 rounded-full hover:bg-white/10 hover:text-white transition-all"
+          >
             How It Works
           </a>
-          <a href="#faq" className="hover:text-[#D4BCC8] transition-colors">
+          <a
+            href="#faq"
+            className="px-4 py-1.5 rounded-full hover:bg-white/10 hover:text-white transition-all"
+          >
             FAQ
           </a>
         </nav>
 
-        {/* Right Button */}
-        <div className="flex items-center gap-3">
-          <ThemeToggle className="text-[#F0E7D5] hover:bg-white/10" />
+        {/* Right CTA */}
+        <div className="flex items-center gap-2">
+          <ThemeToggle className="text-[#F0E7D5] hover:bg-white/10 w-9 h-9" />
           <Link
             href="/home"
-            className="flex items-center gap-2 bg-[#D4BCC8] hover:bg-white text-[#17191D] text-xs font-black uppercase tracking-wider px-6 py-3 rounded-full shadow-md hover:scale-102 active:scale-98 transition-all duration-200"
+            className="flex items-center gap-1.5 bg-[#D4BCC8] hover:bg-white text-[#17191D] text-xs font-extrabold px-4.5 py-2.5 rounded-full shadow-md hover:scale-105 active:scale-95 transition-all duration-200"
           >
-            <span>Launch App</span>
-            <ArrowRight className="w-4 h-4 text-[#17191D]" />
+            <span>Open Studio</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
-      </header>
+      </motion.header>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Sidebar, { Tab } from "@/components/layout/Sidebar";
+import CollapsibleSidebar, { Tab } from "@/components/layout/CollapsibleSidebar";
 import AppHeader from "@/components/layout/AppHeader";
 import MobileNav from "@/components/layout/MobileNav";
 import CompressTab from "@/components/home/CompressTab";
@@ -33,7 +33,7 @@ export default function HomeWorkspacePage() {
 
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-[#F0E7D5] dark:bg-[#17191D] text-[#17191D] dark:text-[#F0E7D5] transition-colors duration-200">
-      <Sidebar
+      <CollapsibleSidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         storageUsed={storageUsed}
