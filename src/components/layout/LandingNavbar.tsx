@@ -51,6 +51,12 @@ export default function LandingNavbar() {
           >
             How it works
           </Link>
+          <Link
+            href="/grabmails/login"
+            className="px-3.5 py-1 rounded-full text-[#000000] font-normal hover:bg-[#000000] hover:text-[#FFFFFF] transition-all duration-200"
+          >
+            Login
+          </Link>
         </nav>
 
         {/* Studio Button */}
